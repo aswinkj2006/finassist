@@ -1,0 +1,542 @@
+/* ─── Dashboard Modern Layout ─────────────────────────────── */
+
+.dashboard-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.section-main-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 2px;
+}
+.section-sub-title {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ─── Swipeable Carousel ──────────────────────────────────── */
+
+.swipe-carousel-section {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.carousel-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: none;
+}
+.carousel-dot.active {
+  width: 18px;
+  background: var(--primary);
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 12px;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.carousel-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.carousel-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+.carousel-arrow-btn {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 50%;
+  padding: 0;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary);
+  border: none;
+  box-shadow: none;
+}
+.carousel-arrow-btn:disabled {
+  opacity: 0.3;
+}
+.carousel-page-indicator {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ─── Net Worth Slide Card ────────────────────────────────── */
+
+.net-worth-card {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #06b6d4 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.3);
+}
+
+.card-top-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+.card-top-tag.warning { color: #f59e0b; }
+.card-top-tag.success { color: #10b981; }
+
+.net-worth-amount {
+  font-size: 2.3rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin: 4px 0 10px 0;
+  line-height: 1.1;
+}
+
+.net-worth-metrics-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 10px;
+}
+.metric-label {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 2px;
+}
+.metric-val {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.text-success { color: #34d399 !important; }
+.text-danger { color: #f87171 !important; }
+
+.accounts-pill-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.accounts-pill-strip::-webkit-scrollbar { display: none; }
+
+.acc-mini-chip {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.acc-mini-chip.more {
+  background: rgba(255, 255, 255, 0.28);
+  font-weight: 600;
+}
+.acc-mini-bal { font-weight: 700; }
+
+/* ─── Cash Flow Slide Card ────────────────────────────────── */
+
+.cash-flow-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+.cash-box {
+  background: #f8faff;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  border: 1px solid rgba(37, 99, 235, 0.08);
+}
+.cash-box.income .cash-box-amt { color: #10b981; }
+.cash-box.expense .cash-box-amt { color: #ef4444; }
+.cash-box-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 2px;
+}
+.cash-box-amt {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ─── Anomaly Slide Card ──────────────────────────────────── */
+
+.anomaly-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.anomaly-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+.anomaly-title { font-weight: 600; font-size: 0.85rem; color: #92400e; }
+.anomaly-reason { font-size: 0.72rem; color: #b45309; }
+.anomaly-amt { font-weight: 700; color: #b45309; font-size: 0.92rem; }
+
+/* ─── 2x3 CATEGORY PILL GRID ──────────────────────────────── */
+
+.category-pill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.category-pill-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 14px 14px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.category-pill-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+.pill-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pill-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pill-trend {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.pill-trend.up { color: #ef4444; }
+.pill-trend.down { color: #10b981; }
+.pill-trend.neutral { color: var(--text-muted); }
+
+.pill-amount-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 6px 0 4px 0;
+}
+.pill-amount {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+.pill-pct {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pill-meta-row {
+  display: flex;
+  align-items: center;
+}
+.pill-subtext {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pill-budget-mini {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pill-budget-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pill-budget-bar {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* ─── FLOATING DEEP-DIVE MODAL ────────────────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 250;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100vw;
+  left: 0;
+  top: 0;
+}
+
+.modal-sheet {
+  background: #ffffff;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.2);
+  animation: slideUpModal 0.3s cubic-bezier(0.32,0.72,0,1) forwards;
+  margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+  .modal-sheet {
+    max-width: 100vw;
+    border-radius: 20px 20px 0 0;
+  }
+}
+@keyframes slideUpModal {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px 14px 22px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.modal-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-title { font-size: 1.15rem; font-weight: 700; color: var(--text-main); }
+.modal-subtitle { font-size: 0.75rem; color: var(--text-muted); }
+.btn-close-modal {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-muted);
+  padding: 0;
+  box-shadow: none;
+}
+
+.modal-scroll-body {
+  padding: 18px 20px 32px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.category-modal-banner {
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.banner-label { font-size: 0.75rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 3px; }
+.banner-value { font-size: 1.8rem; font-weight: 800; }
+.banner-subvalue { font-size: 1.4rem; font-weight: 700; }
+
+.modal-card {
+  background: #f8faff;
+  border: 1px solid rgba(37, 99, 235, 0.08);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.subtag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.subtag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.subtag-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.subtag-name { font-weight: 600; color: var(--text-main); }
+.subtag-amt { font-weight: 700; color: var(--text-main); }
+.subtag-pct { font-size: 0.75rem; color: var(--text-muted); }
+
+.category-tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.category-tx-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+.category-tx-row:last-child { border-bottom: none; }
+.category-tx-note { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+.category-tx-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+.category-tx-amt { font-size: 0.92rem; font-weight: 700; color: #ef4444; }
+
+/* ─── INSIGHTS SLIDE LISTS ────────────────────────────────── */
+
+.budget-slides-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.reminder-slides-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.reminder-slide-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8faff;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(37, 99, 235, 0.08);
+}
+.reminder-slide-item.urgent {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+.reminder-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reminder-badge.urgent {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+.reminder-name { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+.reminder-due { font-size: 0.72rem; color: var(--text-muted); }
+.reminder-amt { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }

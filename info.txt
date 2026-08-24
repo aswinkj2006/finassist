@@ -1,0 +1,131 @@
+FinAssist — Project Specification
+Team: The Expendables Members: Aswin K J (713524AM009), Chakratharie V (713524AM015), Dinesh A (713524AM024), Gokul Saravana (713524AM031) Guide: Ms. A. Catherine Esther Karunya Department: Artificial Intelligence & Machine Learning, SNS College of Technology, Coimbatore Type: Semester mini-project
+1. Problem Statement
+First-time salaried employees and final-year students in India manage their own money for the first time with no structured way to track spending or reach savings goals
+. Early decisions — like understanding tax regimes or basic investment concepts — get made through guesswork or advice from equally unsure friends
+. Unrecorded spending and vague goals compound into poor financial habits early in a career, precisely when good habits matter most and are cheapest to build
+.
+2. Who Faces This
+Final-year students about to enter their first job
+Employees in their first 1-2 years of salaried income
+Anyone managing independent income for the first time, with no financial literacy training or access to a paid advisor
+3. Existing Solutions & Why They Fall Short
+Category
+Examples
+Limitation
+Expense Trackers
+Walnut, Money Manager
+Log transactions, no guidance or goal linkage
+Bank Apps
+Balance/transaction views
+Show what happened, not what to do next
+Financial Advisors
+Human, personalized advice
+Accurate but too expensive for entry-level income
+Search / Friends
+Google, YouTube, peers
+Free but unstructured, biased, disconnected from real numbers
+Gap: No existing tool connects logging, goal-tracking, and contextual guidance grounded in a user's own real data — each existing option solves only one piece
+.
+4. Proposed Solution
+FinAssist is a mobile-first PWA that connects logging, predictive goal-tracking, and soft contextual guidance in one tool
+. It minimizes manual data entry by utilizing AI to extract expense data from SMS notifications and receipt images
+. It generates personalized budget plans using predictive machine learning algorithms
+. Finally, it offers financial coaching using a Retrieval-Augmented Generation (RAG) chatbot that grounds advice in real-time market data without providing specific investment prescriptions
+.
+5. Design Thinking Summary
+Empathize: First-time earners feel less in control despite independent income — saving stays abstract without visible progress
+.
+Define: Users need a way to connect real financial data to concrete goals and understandable guidance without manual entry fatigue
+.
+Ideate: Unify automated logging, predictive budgeting, and contextual soft guidance in one tool, grounded in real numbers
+.
+Prototype: PWA with OCR/SMS logging, ARIMA-based predictive tracker, conversational onboarding, and a RAG-powered score dashboard
+.
+Test: Validate with classmates and first-job peers on goal clarity, logging usability, and trust in guidance tone
+.
+6. Feature List, in Priority Order
+Automated & Manual Logging: Extract transaction amounts, dates, and types automatically from bank SMS and printed receipts using OCR and Neural Networks
+. Fallback to manual entry
+.
+Smart Categorization: Automatically classify logged expenses into appropriate categories using a Multinomial Naive Bayes text classification algorithm
+.
+Score Dashboard & Predictive Budgeting: Generate custom budget plans using ARIMA (Autoregressive Integrated Moving Average) time-series forecasting based on user spending habits
+. Alert users via push notifications if daily budgets are exceeded
+.
+Conversational Onboarding: Chat-based setup collecting personal details, income sources, and goals into the DB
+.
+Pain-point / Coaching Chat (RAG): Soft, educational guidance on saving habits, tax regimes, and investment concepts utilizing Vertex AI and real-time market data retrieval
+.
+7. Data Model
+users: id, name, monthly_net_income, onboarding_complete (bool)
+income_sources: id, user_id, label, amount, frequency
+goals: id, user_id, title, target_amount, target_date, saved_so_far
+transactions: id, user_id, amount, category (needs | wants | savings_investing), subcategory (free text), note, date, source (manual | SMS | OCR | chat)
+Decision Resolved (Transaction Categorization): Transactions will be categorized automatically by the system. The coding agent will utilize a Scikit-learn Multinomial Naive Bayes (MNB) machine learning model, which achieves high accuracy in text classification for expense descriptions
+.
+8. Score Formulas & Budget Planning
+Net Income = Gross salary − mandatory deductions (TDS, EPF, professional tax)
+Custom Budget Planner (ARIMA Predictive Spending): Instead of static targets alone, use the ARIMA model (via Python's statsmodels) on the backend to capture short-term trends and seasonality in daily expenses
+. Forecast the next 15 days of expenses
+. Send a push notification if the user exceeds the predicted daily threshold
+.
+Spending Score Baseline (three category scores, evaluated against the ARIMA predictions and base % targets):
+Needs target: 50% (rent/EMI, groceries, utilities, minimum debt, basic transport)
+Wants target: 30% (dining out, entertainment, hobbies, shopping, vacations)
+Savings & Investing target: 20% (emergency fund, retirement, investments, debt principal)
+Decision Resolved (Savings Score): The Savings Score will be tied directly to the "Savings & Investing" category score (savings ÷ net income × 100) to simplify the dashboard logic
+. Bands: <10% = needs attention · 20-30% = good (long-term stability benchmark) · >=50% = excellent (early-retirement/FI pace)
+.
+9. Conversational Agent — Scope Boundaries (Hard Rules)
+Architecture: The agent must be built using a Retrieval-Augmented Generation (RAG) architecture via Google Cloud Vertex AI
+.
+Data Sources: The RAG retriever must fetch public real-time market data (e.g., gold rates, stock trends) using APIs like Yahoo Finance or Alpha Vantage
+.
+No Advice Rule: The agent must never recommend a specific fund/stock, state a personalized asset allocation %, give a definitive tax filing recommendation, or imply access to live personal bank accounts
+.
+No Live Bank Data: All personal financial data must be user-entered or extracted from SMS/receipts by the app itself
+. No Account Aggregator APIs are permitted
+.
+10. Architecture / Stack
+Backend: FastAPI (Python)
+Frontend: React + Vite, packaged as an installable PWA (manifest.json + service worker)
+DB: SQLite (development)
+Machine Learning / AI Libraries:
+scikit-learn (for Naive Bayes expense categorization)
+statsmodels (for ARIMA predictive budgeting)
+pytesseract / OpenCV (for OCR receipt scanning)
+google-cloud-aiplatform (Vertex AI for RAG Chatbot)
+Agentic Build Tool: OpenCode
+11. Step-by-Step AI Agent Build Order
+(Note to Project Manager: Feed these steps to your AI coding agent one at a time. Do not proceed to the next step until the current one is tested and verified.)
+Step 1: Database & Backend Foundation
+Prompt to Agent: "Set up a FastAPI backend with an SQLite database. Create the SQLAlchemy data models for 'Users', 'Income Sources', 'Goals', and 'Transactions' exactly as defined in Section 7. Create basic CRUD endpoints for each."
+Step 2: Frontend Foundation & Manual Logging
+Prompt to Agent: "Set up a React + Vite PWA frontend. Build forms to allow a user to manually input their income sources, financial goals, and daily transactions. Connect these forms to the FastAPI backend endpoints."
+Step 3: Score Calculation & Dashboard UI
+Prompt to Agent: "Implement the 50/30/20 Score Formulas on the backend (Section 8). Create a React Dashboard UI to display the user's Net Income, Spending Score breakdown, and Savings Score bands using charts (e.g., pie charts/bar graphs)."
+Step 4: Automated Logging (SMS & OCR)
+Prompt to Agent: "Create backend endpoints to accept SMS text and receipt images. Use Python's pytesseract library to extract text and amounts from receipt images. Write regex patterns to extract amounts and dates from standard bank transaction SMS messages."
+Step 5: Smart Categorization (Naive Bayes)
+Prompt to Agent: "Integrate scikit-learn into the FastAPI backend. Implement a Multinomial Naive Bayes (MNB) classifier to automatically categorize incoming transaction descriptions into 'needs', 'wants', or 'savings'. Set it up so it can train on dummy expense data."
+Step 6: Predictive Budgeting (ARIMA) & Alerts
+Prompt to Agent: "Integrate the statsmodels library. Create a backend service that uses the ARIMA time-series model to forecast the user's expenses for the next 15 days based on their historical transaction data. Add a frontend alert/push notification system if a newly logged transaction exceeds the ARIMA daily predicted threshold."
+Step 7: RAG Coaching Chatbot (Vertex AI)
+Prompt to Agent: "Implement a Retrieval-Augmented Generation (RAG) chatbot using Google Cloud Vertex AI. The chatbot must handle user onboarding (saving data to the DB) and offer financial education. Give the agent a system prompt explicitly forbidding it from offering specific investment or tax advice (enforce Section 9 rules)."
+12. Explicitly Out of Scope
+Live bank/Account Aggregator integration
+Investment/tax advice beyond educational explanation (see Section 9)
+Multi-user auth/roles beyond a single profile per install
+Native mobile app — PWA only
+13. References
+Y Combinator — Requests for Startups: AI for Personal Finance
+Income Tax Department, Government of India
+Google Health Coach — conversational onboarding
+Research: Automating Financial Management & Expense Trackers via Machine Learning
+Research: Personalized Finance Chatbots powered by RAG and Generative AI
+14. Open Decisions Still Pending
+[x] Who assigns transaction category? -> Resolved: ML Model (Naive Bayes) automatically assigns.
+[x] Is Savings Score a separate calc? -> Resolved: Unified with the Savings & Investing 20% category for dashboard simplicity.
+[ ] Dev/run/test/lint commands (add to AGENTS.md)
+[ ] Naming/commit conventions (add to AGENTS.md)

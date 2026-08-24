@@ -1,0 +1,27 @@
+[
+  {
+    "topic": "SIP",
+    "title": "Systematic Investment Plan (SIP)",
+    "content": "A Systematic Investment Plan (SIP) is a disciplined approach to investing where you invest a fixed amount of money at regular intervals (e.g., monthly) in a mutual fund. It helps in rupee cost averaging (buying more units when markets are low and fewer when markets are high) and benefits from the power of compounding."
+  },
+  {
+    "topic": "Tax Regimes",
+    "title": "New vs. Old Tax Regime",
+    "content": "In India, salaried earners can choose between two tax regimes. The Old Tax Regime allows various deductions (like 80C for PF, LIC, ELSS, and 80D for health insurance) and exemptions (like HRA) but has higher tax rates for some slabs. The New Tax Regime offers lower tax rates and a higher basic exemption limit (zero tax up to ₹7 Lakhs) but does not allow most deductions and exemptions. The choice depends on an individual's investments and deductions."
+  },
+  {
+    "topic": "Emergency Fund",
+    "title": "Emergency Fund",
+    "content": "An emergency fund is money set aside to cover unexpected financial crises, such as a medical emergency, job loss, or urgent repairs. A common rule of thumb is to save 3 to 6 months' worth of essential living expenses (Needs) in a highly liquid and safe instrument, like a savings account or a liquid mutual fund."
+  },
+  {
+    "topic": "Lifestyle Creep",
+    "title": "Lifestyle Creep (Lifestyle Inflation)",
+    "content": "Lifestyle creep happens when your discretionary spending (Wants) increases as your income increases. While earning more, instead of saving more, people tend to upgrade their lifestyle (expensive car, costlier dining out), which can slow down progress towards long-term financial goals. Keeping 'Wants' under 30% of your net income helps combat this."
+  },
+  {
+    "topic": "EPF",
+    "title": "Employees' Provident Fund (EPF)",
+    "content": "EPF is a mandatory retirement savings scheme for salaried employees in India. A portion of the employee's basic salary (typically 12%) is deducted every month, and an equal amount is contributed by the employer. The government sets the interest rate annually. It is a very secure, tax-efficient way to build a retirement corpus."
+  }
+]

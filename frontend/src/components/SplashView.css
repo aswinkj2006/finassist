@@ -1,0 +1,32 @@
+.splash-container {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 20%, #ffffff 0%, #e4f1fd 55%, #dceefc 100%);
+  background-attachment: fixed;
+  padding: 32px 24px;
+}
+
+.splash-content {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.splash-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.05em;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1;
+}
+
+.splash-subtitle {
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+}
