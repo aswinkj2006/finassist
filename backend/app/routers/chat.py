@@ -196,7 +196,7 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
 
     try:
         interaction = client.interactions.create(
-            model='gemini-2.5-flash',
+            model='gemini-3.6-flash',
             input=request.message,
             system_instruction=system_instruction,
             tools=[update_user_profile_tool, add_goal_tool, log_transaction_tool, search_financial_concepts_tool],
@@ -216,7 +216,7 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
                 result_str = search_financial_concepts(**fc_step.arguments)
                 
             final_interaction = client.interactions.create(
-                model="gemini-2.5-flash",
+                model="gemini-3.6-flash",
                 input=[
                     {
                         "type": "function_result",
