@@ -1,4 +1,4 @@
-# FinAssist 📊
+# FinAssist
 
 **FinAssist** is a modern, mobile-first Progressive Web Application (PWA) designed to empower salaried earners to effortlessly track spending, manage multiple accounts, automate recurring subscriptions, set category budgets, monitor net worth, and gain AI-assisted financial insights.
 
@@ -6,20 +6,20 @@ Built with **FastAPI**, **React + Vite**, **SQLite/PostgreSQL**, and **Google Ge
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-- **📱 Mobile-First Responsive PWA**: Installable on iOS/Android with offline persistence and touch-friendly interface.
-- **🏷️ Dynamic Flat Categories & Tagging**: Custom categories with hex colors, Lucide icons, and multi-tag breakdown (e.g. `Food` ➔ `Groceries`, `Delivery`, `Dining Out`).
-- **💳 Accounts & Net Worth Tracking**: Track Cash, Bank Accounts, Credit Cards, and Wallets with automatic balance reconciliation.
-- **🔄 Subscriptions & Recurring Bills**: Auto-logging recurring engine with next-due-date reminders.
-- **🎯 Category Budgets & Envelope Limits**: Monthly limit tracking, overspend warnings, and visual progress gauges.
-- **📈 Investments & Debts Ledger**: SIPs, Mutual Funds, Stocks, and IOU tracker (Lent / Borrowed).
-- **🤖 AI Financial Coach**: Context-aware AI assistant (powered by Gemini) for conversational logging, habit analysis, and educational financial coaching.
-- **📄 Statements & Visual Reports**: Interactive Pie charts, monthly trend bars, CSV transaction export, and printable reports.
+- **Mobile-First Responsive PWA**: Installable on iOS/Android with offline persistence and touch-friendly interface.
+- **Dynamic Flat Categories & Tagging**: Custom categories with hex colors, Lucide icons, and multi-tag breakdown (e.g. `Food` ➔ `Groceries`, `Delivery`, `Dining Out`).
+- **Accounts & Net Worth Tracking**: Track Cash, Bank Accounts, Credit Cards, and Wallets with automatic balance reconciliation.
+- **Subscriptions & Recurring Bills**: Auto-logging recurring engine with next-due-date reminders.
+- **Category Budgets & Envelope Limits**: Monthly limit tracking, overspend warnings, and visual progress gauges.
+- **Investments & Debts Ledger**: SIPs, Mutual Funds, Stocks, and IOU tracker (Lent / Borrowed).
+- **AI Financial Coach**: Context-aware AI assistant (powered by Gemini) for conversational logging, habit analysis, and educational financial coaching.
+- **Statements & Visual Reports**: Interactive Pie charts, monthly trend bars, CSV transaction export, and printable reports.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## Architecture & Tech Stack
 
 ```
 FinAssist/
@@ -46,7 +46,7 @@ FinAssist/
 
 ---
 
-## 🚀 Local Development Setup
+## Local Development Setup
 
 ### 1. Prerequisites
 - **Python 3.10+**
@@ -90,7 +90,7 @@ Open [http://localhost:5180](http://localhost:5180) in your browser.
 
 ---
 
-## 🌐 Deploying to Vercel (Frontend) & Render / Railway (Backend)
+## Deploying to Vercel (Frontend) & Render / Railway (Backend)
 
 Because this is a full-stack application (Python FastAPI Backend + React Frontend), the recommended deployment strategy is:
 1. **Frontend**: Deploy on **Vercel** (Fast CDN + PWA support).
@@ -128,7 +128,7 @@ Vercel will build and serve your frontend PWA with SSL and automatic global CDN 
 
 ---
 
-## 🔒 Environment Variables Summary
+## Environment Variables Summary
 
 ### Backend (`backend/.env`)
 | Variable | Description | Required |
