@@ -190,12 +190,12 @@ export default function ChatView({ userId }) {
   )
 }
 
-const WELCOME_MSG = `Hi! I'm **FinAssist** 👋
+const WELCOME_MSG = `Hi! I'm **FinAssist**
 
 I can help you:
-- 📝 **Log expenses** — just tell me what you spent
-- 🎯 **Set savings goals** — tell me your target
-- 📚 **Explain concepts** — ask me about SIP, EPF, tax regimes
-- 💰 **Update your income** — tell me your monthly salary
+- **Log expenses** — just tell me what you spent
+- **Set savings goals** — tell me your target
+- **Explain concepts** — ask me about SIP, EPF, tax regimes
+- **Update your income** — tell me your monthly salary
 
 What would you like to do?`
