@@ -39,14 +39,16 @@ export default function ProfileView() {
 
         {/* Income pill */}
         <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8,
+          display: 'inline-flex', alignItems: 'center', gap: 12,
           background: 'rgba(99,102,241,0.08)',
           border: '1.5px solid rgba(99,102,241,0.15)',
           borderRadius: 'var(--radius-full)',
           padding: '10px 22px',
           marginBottom: 20,
         }}>
-          <IndianRupee size={16} color="var(--primary)" />
+          <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(99,102,241,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IndianRupee size={18} color="var(--primary)" />
+          </div>
           <div style={{ textAlign: 'left' }}>
             <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Monthly Net Income</p>
             <p style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--primary)', letterSpacing: '-0.03em' }}>

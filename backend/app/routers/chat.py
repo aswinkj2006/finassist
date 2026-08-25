@@ -103,6 +103,66 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
             "required": ["query"]
         }
     }
+
+    add_account_tool = {
+        "type": "function",
+        "name": "add_account",
+        "description": "Logs a new bank, cash, or credit card account.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "account_type": {"type": "string", "enum": ["bank", "cash", "credit_card", "wallet"]},
+                "balance": {"type": "number"}
+            },
+            "required": ["name", "account_type", "balance"]
+        }
+    }
+
+    add_subscription_tool = {
+        "type": "function",
+        "name": "add_subscription",
+        "description": "Logs a recurring subscription or bill.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "amount": {"type": "number"},
+                "category": {"type": "string"},
+                "billing_cycle": {"type": "string", "enum": ["monthly", "yearly", "weekly", "quarterly"]}
+            },
+            "required": ["name", "amount", "category", "billing_cycle"]
+        }
+    }
+
+    add_investment_tool = {
+        "type": "function",
+        "name": "add_investment",
+        "description": "Logs a new investment (e.g. mutual fund, stock, fixed deposit).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "asset_type": {"type": "string", "enum": ["mutual_fund", "SIP", "stock", "fixed_deposit", "gold", "crypto"]},
+                "invested_amount": {"type": "number"}
+            },
+            "required": ["name", "asset_type", "invested_amount"]
+        }
+    }
+
+    add_budget_tool = {
+        "type": "function",
+        "name": "add_budget",
+        "description": "Sets a monthly limit (budget) for a spending category.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "category": {"type": "string"},
+                "monthly_limit": {"type": "number"}
+            },
+            "required": ["category", "monthly_limit"]
+        }
+    }
     
     def update_user_profile(name: str, monthly_net_income: float):
         crud.update_user(db, user_id, schemas.UserUpdate(name=name, monthly_net_income=monthly_net_income, onboarding_complete=True))
@@ -137,6 +197,32 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
             return "No information found for this concept in the knowledge base."
         except Exception as e:
             return f"Error reading knowledge base: {e}"
+
+    def add_account(name: str, account_type: str, balance: float):
+        acc = schemas.AccountCreate(name=name, account_type=account_type, balance=balance, currency="INR")
+        crud.create_account(db, user_id, acc)
+        return f"Successfully added account: {name} with balance ₹{balance}"
+
+    def add_subscription(name: str, amount: float, category: str, billing_cycle: str):
+        from datetime import date
+        from ..crud import calculate_next_due_date
+        start = date.today()
+        nxt = calculate_next_due_date(start, billing_cycle)
+        sub = schemas.SubscriptionCreate(name=name, amount=amount, category=category, billing_cycle=billing_cycle, start_date=start, next_due_date=nxt)
+        crud.create_subscription(db, user_id, sub)
+        return f"Added subscription {name} for ₹{amount} ({billing_cycle})."
+
+    def add_investment(name: str, asset_type: str, invested_amount: float):
+        inv = schemas.InvestmentCreate(name=name, asset_type=asset_type, invested_amount=invested_amount, current_value=invested_amount)
+        crud.create_investment(db, user_id, inv)
+        return f"Logged investment {name} ({asset_type}) for amount ₹{invested_amount}."
+
+    def add_budget(category: str, monthly_limit: float):
+        from datetime import date
+        month_year = date.today().strftime("%Y-%m")
+        b = schemas.BudgetCreate(category=category, monthly_limit=monthly_limit, month_year=month_year)
+        crud.create_budget(db, user_id, b)
+        return f"Set budget for {category} to ₹{monthly_limit}."
             
     system_instruction = """
     You are FinAssist, a helpful financial assistant for first-time salaried earners in India.
@@ -205,7 +291,10 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
                     model=model_name,
                     input=request.message,
                     system_instruction=system_instruction,
-                    tools=[update_user_profile_tool, add_goal_tool, log_transaction_tool, search_financial_concepts_tool],
+                    tools=[
+                        update_user_profile_tool, add_goal_tool, log_transaction_tool, search_financial_concepts_tool,
+                        add_account_tool, add_subscription_tool, add_investment_tool, add_budget_tool
+                    ],
                 )
                 successful_model = model_name
                 break
@@ -226,6 +315,14 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
                 result_str = log_transaction(**fc_step.arguments)
             elif fc_step.name == "search_financial_concepts":
                 result_str = search_financial_concepts(**fc_step.arguments)
+            elif fc_step.name == "add_account":
+                result_str = add_account(**fc_step.arguments)
+            elif fc_step.name == "add_subscription":
+                result_str = add_subscription(**fc_step.arguments)
+            elif fc_step.name == "add_investment":
+                result_str = add_investment(**fc_step.arguments)
+            elif fc_step.name == "add_budget":
+                result_str = add_budget(**fc_step.arguments)
                 
             final_interaction = client.interactions.create(
                 model=successful_model,
@@ -237,7 +334,10 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
                         "result": [{"type": "text", "text": result_str}],
                     }
                 ],
-                tools=[update_user_profile_tool, add_goal_tool, log_transaction_tool, search_financial_concepts_tool],
+                tools=[
+                    update_user_profile_tool, add_goal_tool, log_transaction_tool, search_financial_concepts_tool,
+                    add_account_tool, add_subscription_tool, add_investment_tool, add_budget_tool
+                ],
                 previous_interaction_id=interaction.id,
                 system_instruction=system_instruction,
             )
