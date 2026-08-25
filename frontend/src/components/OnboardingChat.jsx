@@ -46,7 +46,9 @@ export default function OnboardingChat() {
       }
       setMessages(prev => [...prev, { sender: 'ai', text: response.reply }])
     } catch (err) {
-      setMessages(prev => [...prev, { sender: 'ai', text: "Sorry, I had trouble processing that. Could you try again?" }])
+      const detail = err?.response?.data?.detail || err?.message || 'Unknown error'
+      console.error('Onboarding chat error:', detail)
+      setMessages(prev => [...prev, { sender: 'ai', text: `I had trouble processing that. Error: *${detail}*\n\nPlease try again or skip to the dashboard using the button below.` }])
     } finally {
       setLoading(false)
     }
@@ -145,7 +147,7 @@ export default function OnboardingChat() {
       {/* Input */}
       <div style={{
         padding: '14px 20px 28px',
-        background: 'rgba(255,255,255,0.85)',
+        background: 'rgba(255,255,255,0.92)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderTop: '1px solid rgba(37,99,235,0.08)',
@@ -160,10 +162,11 @@ export default function OnboardingChat() {
             disabled={loading}
             style={{
               flex: 1, marginBottom: 0,
-              background: 'rgba(255,255,255,0.9)',
-              border: '1px solid rgba(255,255,255,0.5)',
+              background: 'rgba(255,255,255,0.95)',
+              border: '1.5px solid rgba(37,99,235,0.15)',
               borderRadius: 'var(--radius-full)',
               padding: '12px 20px',
+              fontSize: '0.92rem',
             }}
           />
           <button
@@ -177,18 +180,22 @@ export default function OnboardingChat() {
         <button
           onClick={handleFinish}
           style={{
-            background: 'rgba(255,255,255,0.15)',
-            border: '1px solid rgba(255,255,255,0.3)',
+            background: 'linear-gradient(135deg, #2563eb, #06b6d4)',
+            border: 'none',
             color: 'white',
-            backdropFilter: 'blur(8px)',
             borderRadius: 'var(--radius-full)',
-            padding: '11px',
-            boxShadow: 'none',
-            fontSize: '0.88rem',
+            padding: '13px 20px',
+            boxShadow: '0 4px 14px rgba(37,99,235,0.25)',
+            fontSize: '0.9rem',
             fontWeight: 600,
+            cursor: 'pointer',
+            letterSpacing: '0.01em',
+            transition: 'transform 0.15s ease, box-shadow 0.15s ease',
           }}
+          onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+          onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          Done — Go to Dashboard →
+          ✓ Done — Go to Dashboard
         </button>
       </div>
 
