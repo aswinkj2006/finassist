@@ -195,7 +195,7 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
     ))
 
     try:
-        models_to_try = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-3.5-flash', 'gemini-3.0-flash']
+        models_to_try = ['gemini-3.5-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-1.5-flash', 'gemini-2.0-flash']
         interaction = None
         successful_model = None
         
@@ -241,7 +241,7 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
                 previous_interaction_id=interaction.id,
                 system_instruction=system_instruction,
             )
-            reply_text = final_interaction.output_text
+            reply_text = final_interaction.output_text or "Done! I've updated your information."
             crud.create_chat_message(db, user_id, schemas.ChatMessageCreate(
                 session_id=session_id,
                 role="model",
@@ -250,7 +250,7 @@ def chat_with_agent(user_id: int, request: ChatRequest, db: Session = Depends(ge
             ))
             return ChatResponse(reply=reply_text, session_id=session_id)
             
-        reply_text = interaction.output_text
+        reply_text = interaction.output_text or "I processed your request, but didn't generate a text response."
         crud.create_chat_message(db, user_id, schemas.ChatMessageCreate(
             session_id=session_id,
             role="model",
